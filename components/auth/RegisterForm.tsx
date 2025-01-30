@@ -9,7 +9,6 @@ import { toast } from "sonner";
 import { registerUser } from "@/actions/create-account-action";
 import { registerSchema, RegisterSchema } from "@/src/schemas";
 import type { RegisterForm } from "@/src/types/User";
-import { log } from "console";
 
 const RegisterForm = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,7 +27,7 @@ const RegisterForm = () => {
     const { success } = await registerUser(formData);
 
     if (success.error) {
-      toast.error("Correo electrónico ya está en uso ");
+      toast.error("Correo electrónico ya está en uso");
       return;
     }
 

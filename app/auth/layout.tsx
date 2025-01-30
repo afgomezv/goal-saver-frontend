@@ -9,11 +9,7 @@ export default function AuthLayout({
   return (
     <>
       <div className="flex h-screen bg-gray-900">
-        <div className="relative w-full lg:w-1/2  flex items-center justify-center p-8">
-          <div className="absolute top-8 lg:hidden">
-            <Logo />
-            <h1 className="text-6xl text-white"></h1>
-          </div>
+        <div className="w-full lg:w-1/2  flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             <div className="space-y-6">{children}</div>
           </div>
