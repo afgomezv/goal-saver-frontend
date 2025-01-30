@@ -1,4 +1,5 @@
 import Logo from "@/components/ui/Logo";
+import { Toaster } from "sonner";
 
 export default function AuthLayout({
   children,
@@ -11,6 +12,7 @@ export default function AuthLayout({
         <div className="relative w-full lg:w-1/2  flex items-center justify-center p-8">
           <div className="absolute top-8 lg:hidden">
             <Logo />
+            <h1 className="text-6xl text-white"></h1>
           </div>
           <div className="w-full max-w-md">
             <div className="space-y-6">{children}</div>
@@ -24,6 +26,7 @@ export default function AuthLayout({
           </div>
         </div>
       </div>
+      <Toaster position="bottom-center" richColors className="mb-20" />
     </>
   );
 }

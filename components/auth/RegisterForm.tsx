@@ -3,44 +3,82 @@
 import { useState } from "react";
 import { Button, Input } from "@heroui/react";
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { registerUser } from "@/actions/create-account-action";
+import { registerSchema, RegisterSchema } from "@/src/schemas";
+import type { RegisterForm } from "@/src/types/User";
+import { log } from "console";
 
 const RegisterForm = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const handleRegister = async (formData: RegisterForm) => {
+    const { success } = await registerUser(formData);
+
+    if (success.error) {
+      toast.error("Correo electrónico ya está en uso ");
+      return;
+    }
+
+    toast.success("Usuario registrado exitosamente!");
+
+    reset();
+  };
+
   return (
-    <div className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit(handleRegister)}>
       <Input
         type="text"
         label="Nombre Completo"
+        isInvalid={!!errors.name}
+        errorMessage={`${errors.name?.message}`}
         placeholder="Ingrese nombre completo"
         startContent={<User className="text-default-400" size={18} />}
         classNames={{
-          base: "bg-gray-800/50 rounded-lg",
-          mainWrapper: "h-12",
-          input: "text-white",
-          label: "text-gray-400",
-          inputWrapper:
-            "bg-gray-800/50 backdrop-blur-xl border-gray-700 hover:border-gray-600 group-data-[focus=true]:border-blue-500",
+          input: [
+            "placeholder:text-text-white/60",
+            "group-data-[has-value=true]:text-white/60",
+            "focus:group-data-[has-value=true]:text-black",
+          ],
+          inputWrapper: ["bg-gray-800/50"],
         }}
-      />
-      <Input
-        type="email"
-        label="Correo Electrónico"
-        placeholder="Ingresar correo electrónico"
-        startContent={<Mail className="text-default-400" size={18} />}
-        classNames={{
-          base: "bg-gray-800/50 rounded-lg",
-          mainWrapper: "h-12",
-          input: "text-white",
-          label: "text-gray-400",
-          inputWrapper:
-            "bg-gray-800/50 backdrop-blur-xl border-gray-700 hover:border-gray-600 group-data-[focus=true]:border-blue-500",
-        }}
+        {...register("name", { required: `${errors.name}` })}
       />
 
       <Input
+        type="email"
+        label="Correo Electrónico"
+        isInvalid={!!errors.email}
+        errorMessage={`${errors.email?.message}`}
+        placeholder="Ingresar correo electrónico"
+        startContent={<Mail className="text-default-400" size={18} />}
+        classNames={{
+          input: [
+            "placeholder:text-text-white/60",
+            "group-data-[has-value=true]:text-white/60",
+            "focus:group-data-[has-value=true]:text-black",
+          ],
+          inputWrapper: ["bg-gray-800/50"],
+        }}
+        {...register("email", { required: `${errors.email}` })}
+      />
+      <Input
+        type={isVisible ? "text" : "password"}
         label="Contraseña"
+        isInvalid={!!errors.password}
+        errorMessage={`${errors.password?.message}`}
         placeholder="Ingresar Contraseña"
         startContent={<Lock className="text-default-400" size={18} />}
         endContent={
@@ -52,35 +90,42 @@ const RegisterForm = () => {
             )}
           </button>
         }
-        type={isVisible ? "text" : "password"}
         classNames={{
-          base: "bg-gray-800/50 rounded-lg",
-          mainWrapper: "h-12",
-          input: "text-white",
-          label: "text-gray-400",
-          inputWrapper:
-            "bg-gray-800/50 backdrop-blur-xl border-gray-700 hover:border-gray-600 group-data-[focus=true]:border-blue-500",
+          input: [
+            "placeholder:text-text-white/60",
+            "group-data-[has-value=true]:text-white/60",
+            "focus:group-data-[has-value=true]:text-black",
+          ],
+          inputWrapper: ["bg-gray-800/50"],
         }}
+        {...register("password", { required: `${errors.password}` })}
       />
-
       <Input
+        type="password"
         label="Confirmar Contraseña"
+        isInvalid={!!errors.confirmPassword}
+        errorMessage={`${errors.confirmPassword?.message}`}
         placeholder="Ingresar Contraseña"
         startContent={<Lock className="text-default-400" size={18} />}
-        type="password"
         classNames={{
-          base: "bg-gray-800/50 rounded-lg",
-          mainWrapper: "h-12",
-          input: "text-white",
-          label: "text-gray-400",
-          inputWrapper:
-            "bg-gray-800/50 backdrop-blur-xl border-gray-700 hover:border-gray-600 group-data-[focus=true]:border-blue-500",
+          input: [
+            "placeholder:text-text-white/60",
+            "group-data-[has-value=true]:text-white/60",
+            "focus:group-data-[has-value=true]:text-black",
+          ],
+          inputWrapper: ["bg-gray-800/50"],
         }}
+        {...register("confirmPassword", {
+          required: `${errors.confirmPassword}`,
+        })}
       />
-      <Button className="w-full h-12 bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg">
+      <Button
+        type="submit"
+        className="w-full h-12 bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg"
+      >
         Registrarme
       </Button>
-    </div>
+    </form>
   );
 };
 
