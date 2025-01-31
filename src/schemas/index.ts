@@ -16,3 +16,13 @@ export const registerSchema = z
   });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "El correo electrónico es requerido" })
+    .email({ message: "El correo electrónico no es valido" }),
+  password: z.string().min(8, { message: "El password es requerido" }),
+});
+
+export type LoginSchema = z.infer<typeof loginSchema>;

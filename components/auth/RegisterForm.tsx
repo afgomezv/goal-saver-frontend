@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Input } from "@heroui/react";
-import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Button, Input } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { registerUser } from "@/actions/create-account-action";
@@ -13,6 +14,7 @@ import type { RegisterForm } from "@/src/types/User";
 const RegisterForm = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const router = useRouter();
 
   const {
     register,
@@ -32,8 +34,8 @@ const RegisterForm = () => {
     }
 
     toast.success("Usuario registrado exitosamente!");
-
     reset();
+    router.push("/auth/login");
   };
 
   return (

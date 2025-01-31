@@ -2,10 +2,12 @@
 
 import { confirmAccount } from "@/actions/confirm-account-action";
 import { Button, InputOtp } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const ConfirmAccountForm = () => {
+  const router = useRouter();
   const {
     handleSubmit,
     reset,
@@ -26,6 +28,7 @@ const ConfirmAccountForm = () => {
     toast.success("Cuenta confirmada exitosamente!");
 
     reset();
+    router.push("/auth/login");
   };
 
   return (
