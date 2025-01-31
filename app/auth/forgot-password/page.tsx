@@ -1,6 +1,6 @@
+import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
 import type { Metadata } from "next";
 import Link from "next/link";
-import ForgotPassword from "@/components/auth/ForgotPassword";
 
 export const metadata: Metadata = {
   title: "GoalSaver | Olvidé Password",
@@ -18,7 +18,7 @@ export default function LoginPage() {
         aquí puedes{" "}
         <span className="text-[#4dd307] font-semibold">reestablecerla</span>
       </p>
-      <ForgotPassword />
+      <ForgotPasswordForm />
       <nav className="mt-4 flex flex-col space-y-4">
         <Link href="/auth/login" className="text-center text-gray-400">
           ¿Ya tienes cuenta? Inicar Sesión

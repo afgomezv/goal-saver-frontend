@@ -1,11 +1,10 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { loginSchema } from "@/src/schemas";
-import { LoginForm } from "@/src/types/User";
+import { Login, loginSchema } from "@/src/schemas";
 
-export async function authenticateUser(formdata: LoginForm) {
-  const login = loginSchema.safeParse(formdata);
+export async function authenticateUser(formData: Login) {
+  const login = loginSchema.safeParse(formData);
 
   if (!login.success) {
     const errors = login.error.errors.map((error) => error.message);
@@ -22,7 +21,7 @@ export async function authenticateUser(formdata: LoginForm) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formdata),
+    body: JSON.stringify(formData),
   });
 
   const json = await req.json();

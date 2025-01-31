@@ -15,7 +15,7 @@ export const registerSchema = z
     path: ["confirmPassword"],
   });
 
-export type RegisterSchema = z.infer<typeof registerSchema>;
+export type Register = z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
   email: z
@@ -25,7 +25,7 @@ export const loginSchema = z.object({
   password: z.string().min(8, { message: "El password es requerido" }),
 });
 
-export type LoginSchema = z.infer<typeof loginSchema>;
+export type Login = z.infer<typeof loginSchema>;
 
 export const UserSchema = z.object({
   id: z.number(),
@@ -34,3 +34,12 @@ export const UserSchema = z.object({
 });
 
 export type User = z.infer<typeof UserSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "El correo electrónico es requerido" })
+    .email({ message: "El correo electrónico no es valido" }),
+});
+
+export type ForgotPassword = z.infer<typeof forgotPasswordSchema>;

@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button, Input } from "@heroui/react";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { loginSchema, LoginSchema } from "@/src/schemas";
+import { loginSchema, Login } from "@/src/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { LoginForm } from "@/src/types/User";
 import { authenticateUser } from "@/actions/authenticate-user-action";
 import { toast } from "sonner";
 
@@ -21,13 +20,12 @@ const LoginForm = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginSchema>({
+  } = useForm<Login>({
     resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = async (formData: LoginForm) => {
+  const handleLogin = async (formData: Login) => {
     const { success } = await authenticateUser(formData);
-    console.log(success.error);
 
     if (success.error) {
       switch (success.error) {

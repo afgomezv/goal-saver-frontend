@@ -1,10 +1,9 @@
 "use server";
 
-import { registerSchema } from "@/src/schemas";
-import { RegisterForm } from "@/src/types/User";
+import { Register, registerSchema } from "@/src/schemas";
 
-export async function registerUser(formdata: RegisterForm) {
-  const register = registerSchema.safeParse(formdata);
+export async function registerUser(formData: Register) {
+  const register = registerSchema.safeParse(formData);
 
   if (!register.success) {
     const errors = register.error.errors.map((error) => error.message);

@@ -8,8 +8,7 @@ import { Button, Input } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { registerUser } from "@/actions/create-account-action";
-import { registerSchema, RegisterSchema } from "@/src/schemas";
-import type { RegisterForm } from "@/src/types/User";
+import { registerSchema, Register } from "@/src/schemas";
 
 const RegisterForm = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,11 +20,11 @@ const RegisterForm = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterSchema>({
+  } = useForm<Register>({
     resolver: zodResolver(registerSchema),
   });
 
-  const handleRegister = async (formData: RegisterForm) => {
+  const handleRegister = async (formData: Register) => {
     const { success } = await registerUser(formData);
 
     if (success.error) {
