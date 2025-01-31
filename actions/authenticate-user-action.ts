@@ -27,8 +27,6 @@ export async function authenticateUser(formdata: LoginForm) {
 
   const json = await req.json();
 
-  console.log(json.data.token);
-
   cookies().set({
     name: "GOALSAVER_TOKEN",
     value: json.data.token,

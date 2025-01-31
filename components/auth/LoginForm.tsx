@@ -47,8 +47,8 @@ const LoginForm = () => {
     }
 
     toast.success("Inicie sesión correctamente!");
-    //reset();
-    //router.push("/auth/login");
+    reset();
+    router.push("/admin");
   };
 
   return (
