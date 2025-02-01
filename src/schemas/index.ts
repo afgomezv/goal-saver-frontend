@@ -43,3 +43,15 @@ export const forgotPasswordSchema = z.object({
 });
 
 export type ForgotPassword = z.infer<typeof forgotPasswordSchema>;
+
+export const resetPasswordSchema = z
+  .object({
+    password: z.string().min(8, { message: "Minimo 8 caracteres" }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPassword = z.infer<typeof resetPasswordSchema>;

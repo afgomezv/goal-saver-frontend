@@ -1,41 +1,46 @@
-"use client";
-
-import { confirmAccount } from "@/actions/confirm-account-action";
-import { Button, InputOtp } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { Button, InputOtp } from "@heroui/react";
 import { toast } from "sonner";
+import { validateToken } from "@/actions/validate-token-action";
 
-const ConfirmAccountForm = () => {
+type ValidateTokenFormProps = {
+  setIsValidToken: Dispatch<SetStateAction<boolean>>;
+  setToken: Dispatch<SetStateAction<string>>;
+};
+
+const ValidateTokenForm = ({
+  setIsValidToken,
+  setToken,
+}: ValidateTokenFormProps) => {
   const router = useRouter();
 
   const {
     handleSubmit,
-    reset,
     control,
     formState: { errors },
   } = useForm({
     defaultValues: { token: "" },
   });
 
-  const handleConfirmAccount = async (data: { token: string }) => {
-    const { success } = await confirmAccount(data);
+  const handleValidateToken = async (data: { token: string }) => {
+    const { success } = await validateToken(data);
 
     if (success.error) {
-      toast.error("Token no es valido");
+      toast.error("Token Invalido");
       return;
     }
 
-    toast.success("Cuenta confirmada exitosamente!");
-
-    reset();
-    router.push("/auth/login");
+    toast.success("Token es valido, asigna una nueva contraseña");
+    setIsValidToken(true);
+    setToken(data.token);
   };
 
   return (
     <form
       className="flex flex-col justify-center my-10"
-      onSubmit={handleSubmit(handleConfirmAccount)}
+      onSubmit={handleSubmit(handleValidateToken)}
     >
       <Controller
         control={control}
@@ -64,10 +69,10 @@ const ConfirmAccountForm = () => {
         type="submit"
         className="w-full h-12 bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg mt-12"
       >
-        Confirmar Cuenta
+        Verificar Token
       </Button>
     </form>
   );
 };
 
-export default ConfirmAccountForm;
+export default ValidateTokenForm;

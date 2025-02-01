@@ -32,8 +32,8 @@ const ForgotPasswordForm = () => {
     toast.success(
       "Correo electrónico de reestablecer la contraseña enviado correctamente!"
     );
-    //reset();
-    //router.push("/auth/login");
+    reset();
+    router.push("/auth/new-password");
   };
   return (
     <form className="space-y-6" onSubmit={handleSubmit(handleForgotPassword)}>
