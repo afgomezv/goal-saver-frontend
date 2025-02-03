@@ -7,10 +7,15 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  useDisclosure,
 } from "@heroui/react";
 import { EllipsisVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
+import DeleteBudgetModal from "./DeleteBudgetModal";
 
 const BudgetMenu = ({ budgetId }: { budgetId: Budget["id"] }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
       <Dropdown>
@@ -30,12 +35,17 @@ const BudgetMenu = ({ budgetId }: { budgetId: Budget["id"] }) => {
             key="delete"
             color="danger"
             className="text-danger"
-            onPress={() => {}}
+            onPress={onOpen}
           >
             Eliminar Presupuesto
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      <DeleteBudgetModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        budgetId={budgetId}
+      />
     </>
   );
 };

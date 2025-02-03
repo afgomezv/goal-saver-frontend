@@ -81,3 +81,7 @@ export const SuccessSchema = z.string();
 export const ErrorResponseSchema = z.object({
   error: z.string(),
 });
+
+export const PasswordValidateSchema = z.string().min(1, {
+  message: "Password no válido",
+});
