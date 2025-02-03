@@ -76,3 +76,8 @@ export const BudgetAPIResponseSchema = z.object({
 
 export const BudgetsAPIResponseSchema = z.array(BudgetAPIResponseSchema);
 export type Budget = z.infer<typeof BudgetAPIResponseSchema>;
+
+export const SuccessSchema = z.string();
+export const ErrorResponseSchema = z.object({
+  error: z.string(),
+});

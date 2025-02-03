@@ -6,6 +6,7 @@ import { createBudget } from "@/actions/create-budget-action";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import BudgetForm from "./BudgetForm";
 
 const CreateBudgetForm = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const CreateBudgetForm = () => {
 
   useEffect(() => {
     if (state.success) {
-      toast.success("Presupuesto creado correactamente", {
+      toast.success("Presupuesto creado correctamente", {
         onAutoClose: () => {
           router.push("/admin");
         },
@@ -27,20 +28,7 @@ const CreateBudgetForm = () => {
 
   return (
     <form className="mt-10 space-y-5" noValidate action={dispatch}>
-      <Input
-        type="text"
-        name="name"
-        label="Nombre Presupuesto"
-        isInvalid={!!state.errors[0]}
-        errorMessage={state.errors[0]}
-      />
-      <Input
-        type="number"
-        name="amount"
-        label="Cantidad Presupuesto"
-        isInvalid={!!state.errors[1]}
-        errorMessage={state.errors[1]}
-      />
+      <BudgetForm state={state} />
       <Button
         type="submit"
         className="w-full h-12 bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg"

@@ -22,7 +22,7 @@ export default function NewPage() {
         </Link>
       </div>
 
-      <div className="bg-gray-600/60 border-gray-600 p-10 mt-10  shadow-lg border rounded-2xl ">
+      <div className="bg-gray-600/60 border-gray-600 p-10 mt-10  shadow-lg border rounded-2xl">
         <CreateBudgetForm />
       </div>
     </>

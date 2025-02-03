@@ -1,28 +1,20 @@
-import getToken from "@/src/auth/token";
-import { BudgetAPIResponseSchema } from "@/src/schemas";
-import { Button } from "@heroui/react";
+import { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { Button } from "@heroui/react";
+import EditBudgetForm from "@/components/budgets/EditBudgetForm";
+import { getBudget } from "@/src/services/budget";
 
-const getBudget = async (budgetId: string) => {
-  const token = getToken();
-  const url = `${process.env.API_URL}/budgets/${budgetId}`;
-
-  const req = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const json = await req.json();
-
-  if (!req.ok) {
-    notFound();
-  }
-
-  const budget = BudgetAPIResponseSchema.parse(json);
-  return budget;
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const budget = await getBudget(params.id);
+  return {
+    title: `GoalSaver - ${budget.name}`,
+    description: "Edite su presupuesto en línea",
+  };
+}
 
 export default async function EditBudgetPage({
   params,
@@ -38,7 +30,7 @@ export default async function EditBudgetPage({
       <div className="flex flex-col-reverse md:flex-row md:justify-between items-center">
         <div className="w-full md:w-auto">
           <h1 className="text-4xl font-black bg-gradient-to-r from-[#ffe000] to-[#4dd307] bg-clip-text text-transparent my-5">
-            Editar Presupuesto:
+            Editar Presupuesto: {budget.name}
           </h1>
           <p className="text-xl font-bold text-gray-600">
             Llena el formulario y crea un nuevo{" "}
@@ -49,7 +41,9 @@ export default async function EditBudgetPage({
           <Link href={"/admin"}>Volver</Link>
         </Button>
       </div>
-      <div className="p-10 mt-10  shadow-lg border "></div>
+      <div className="bg-gray-600/60 border-gray-600 p-10 mt-10  shadow-lg border rounded-2xl">
+        <EditBudgetForm budget={budget} />
+      </div>
     </>
   );
 }
