@@ -23,7 +23,7 @@ const BudgetMenu = ({ budgetId }: { budgetId: Budget["id"] }) => {
           <DropdownItem key="view" href={`/admin/budgets/${budgetId}`}>
             Ver Presupuesto
           </DropdownItem>
-          <DropdownItem key="edit" href="">
+          <DropdownItem key="edit" href={`/admin/budgets/${budgetId}/edit`}>
             Editar Presupuesto
           </DropdownItem>
           <DropdownItem
