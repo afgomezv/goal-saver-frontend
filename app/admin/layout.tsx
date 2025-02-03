@@ -12,7 +12,7 @@ export default async function AdminLayout({
   const { user } = await verifySession();
 
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <header className="bg-gray-700 py-4">
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row justify-between items-center">
           <div className="w-96">
@@ -23,7 +23,7 @@ export default async function AdminLayout({
           <AdminMenu user={user} />
         </div>
       </header>
-      <div className="w-full bg-gray-900">
+      <div className="flex-1 w-full bg-gray-900">
         <section className="max-w-5xl mx-auto pt-20 p-3 py-10">
           {children}
         </section>
@@ -34,6 +34,6 @@ export default async function AdminLayout({
           Todos los Derechos Reservados {new Date().getFullYear()}
         </p>
       </footer>
-    </>
+    </div>
   );
 }

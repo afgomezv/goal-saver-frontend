@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { Button } from "@heroui/react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Mis Presupuestos",
+  description: "Administra tus presupuestos con mis presupuestos",
+  keywords: ["presupuesto", "administración", "manejo"],
+};
 
 export default function AdminPage() {
   return (
@@ -14,7 +21,7 @@ export default function AdminPage() {
             <span className="text-[#4dd307]">presupuestos</span>
           </p>
         </div>
-        <Link href={"/admin/budget/new"}>
+        <Link href={"/admin/budgets/new"}>
           <Button className="w-full h-12 bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg">
             Crear Presupuesto
           </Button>

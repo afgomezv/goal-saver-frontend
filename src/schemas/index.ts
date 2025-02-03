@@ -55,3 +55,12 @@ export const resetPasswordSchema = z
   });
 
 export type ResetPassword = z.infer<typeof resetPasswordSchema>;
+
+export const DraftBudgetSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: "El nombre del presupuesto es obligatorio" }),
+  amount: z.coerce
+    .number({ message: "Cantidad no válida" })
+    .min(1, { message: "Cantidad no válida" }),
+});
