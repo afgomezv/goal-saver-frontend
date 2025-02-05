@@ -85,3 +85,12 @@ export const ErrorResponseSchema = z.object({
 export const PasswordValidateSchema = z.string().min(1, {
   message: "Password no válido",
 });
+
+export const DraftExpenseSchema = z.object({
+  name: z.string().min(1, { message: "El nombre del gasto es obligatorio" }),
+  amount: z.coerce
+    .number({ message: "Cantidad no válida" })
+    .min(1, { message: "Cantidad no válida" }),
+});
+
+export type Expense = z.infer<typeof DraftBudgetSchema>;
