@@ -1,4 +1,4 @@
-import { Expense } from "@/src/schemas";
+import { ExpenseValidateForm } from "@/src/schemas";
 import { Input } from "@heroui/react";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
         errors: never[];
         success: any;
       };
-  expense?: Expense;
+  expense?: ExpenseValidateForm;
 };
 
 const ExpenseForm = ({ state, expense }: Props) => {
