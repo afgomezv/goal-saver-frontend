@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -6,22 +7,28 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
-import ExpenseForm from "./ExpenseForm";
 import { useFormState } from "react-dom";
-import createExpense from "@/actions/create-expense-action";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { DraftExpense, Expense } from "@/src/schemas";
-import editExpense from "@/actions/edit-expense-action";
 import { toast } from "sonner";
+import ExpenseForm from "./ExpenseForm";
+import { DraftExpense } from "@/src/schemas";
+import editExpense from "@/actions/edit-expense-action";
 
 type Props = {
   isOpen: boolean;
   onOpenChange: () => void;
+  onOpen: () => void;
   expenseId: number;
+  setModal: Dispatch<SetStateAction<boolean>>;
 };
 
-const UpdateExpenseModal = ({ isOpen, onOpenChange, expenseId }: Props) => {
+const UpdateExpenseModal = ({
+  isOpen,
+  onOpen,
+  setModal,
+  onOpenChange,
+  expenseId,
+}: Props) => {
   const [expense, setExpense] = useState<DraftExpense>();
   const { id: budgetId } = useParams();
 
@@ -33,6 +40,11 @@ const UpdateExpenseModal = ({ isOpen, onOpenChange, expenseId }: Props) => {
     errors: [],
     success: "",
   });
+
+  const handleClose = () => {
+    setModal(false);
+    onOpen();
+  };
 
   useEffect(() => {
     const url = `${process.env.NEXT_PUBLIC_URL}/admin/api/budgets/${budgetId}/expenses/${expenseId}`;
@@ -50,7 +62,7 @@ const UpdateExpenseModal = ({ isOpen, onOpenChange, expenseId }: Props) => {
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
-        {(onClose) => (
+        {() => (
           <>
             <ModalHeader className="flex flex-col gap-1">
               <h1
@@ -69,7 +81,7 @@ const UpdateExpenseModal = ({ isOpen, onOpenChange, expenseId }: Props) => {
             <form noValidate action={dispatch}>
               <ExpenseForm state={state} expense={expense} />
               <ModalFooter>
-                <Button variant="light" onPress={onClose}>
+                <Button variant="light" onPress={() => handleClose()}>
                   Cerrar
                 </Button>
                 <Button

@@ -9,9 +9,20 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import { Expense } from "@/src/schemas";
 import UpdateExpenseModal from "./UpdateExpenseModal";
+import DeleteExpenseModal from "./DeleteExpenseModal";
+import { useState } from "react";
 
 const ExpenseMenu = ({ expenseId }: { expenseId: Expense["id"] }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+
+  const handleOpen = (modal: string) => {
+    if (modal === "edit") setOpenModalEdit(true);
+    if (modal === "delete") setOpenModalDelete(true);
+
+    onOpen();
+  };
 
   return (
     <>
@@ -22,21 +33,35 @@ const ExpenseMenu = ({ expenseId }: { expenseId: Expense["id"] }) => {
           </Button>
         </DropdownTrigger>
         <DropdownMenu>
-          <DropdownItem key="edit" onPress={onOpen}>
+          <DropdownItem
+            key="edit"
+            onPress={() => handleOpen("edit")}
+            textValue="Editar Gasto"
+          >
             Editar Gasto
           </DropdownItem>
           <DropdownItem
             key="delete"
             color="danger"
             className="text-danger"
-            //onPress={onOpen}
+            textValue="Eliminar Gasto"
+            onPress={() => handleOpen("delete")}
           >
             Eliminar Gasto
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <UpdateExpenseModal
-        isOpen={isOpen}
+        isOpen={openModalEdit}
+        onOpen={onOpen}
+        setModal={setOpenModalEdit}
+        onOpenChange={onOpenChange}
+        expenseId={expenseId}
+      />
+      <DeleteExpenseModal
+        isOpen={openModalDelete}
+        onOpen={onOpen}
+        setModal={setOpenModalDelete}
         onOpenChange={onOpenChange}
         expenseId={expenseId}
       />
