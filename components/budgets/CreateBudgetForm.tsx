@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { Button, Input } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { createBudget } from "@/actions/create-budget-action";
 import { useEffect } from "react";
 import { toast } from "sonner";

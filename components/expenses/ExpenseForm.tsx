@@ -1,4 +1,4 @@
-import { ExpenseValidateForm } from "@/src/schemas";
+import { DraftExpense } from "@/src/schemas";
 import { Input } from "@heroui/react";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
         errors: never[];
         success: any;
       };
-  expense?: ExpenseValidateForm;
+  expense?: DraftExpense;
 };
 
 const ExpenseForm = ({ state, expense }: Props) => {
@@ -24,6 +24,7 @@ const ExpenseForm = ({ state, expense }: Props) => {
           name="name"
           isInvalid={!!state.errors[0]}
           errorMessage={state.errors[0]}
+          defaultValue={expense?.name}
         />
         <Input
           type="number"
@@ -31,6 +32,7 @@ const ExpenseForm = ({ state, expense }: Props) => {
           name="amount"
           isInvalid={!!state.errors[1]}
           errorMessage={state.errors[1]}
+          defaultValue={expense?.amount.toString()!}
         />
       </div>
     </>

@@ -74,6 +74,8 @@ export const ExpensesAPIResponseSchema = z.object({
   budgetId: z.number(),
 });
 
+export type Expense = z.infer<typeof ExpensesAPIResponseSchema>;
+
 export const BudgetAPIResponseSchema = z.object({
   id: z.number(),
   name: z.string(),
@@ -105,4 +107,4 @@ export const DraftExpenseSchema = z.object({
     .min(1, { message: "Cantidad no válida" }),
 });
 
-export type ExpenseValidateForm = z.infer<typeof DraftBudgetSchema>;
+export type DraftExpense = z.infer<typeof DraftBudgetSchema>;

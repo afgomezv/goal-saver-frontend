@@ -4,10 +4,15 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  useDisclosure,
 } from "@heroui/react";
 import { EllipsisVertical } from "lucide-react";
+import { Expense } from "@/src/schemas";
+import UpdateExpenseModal from "./UpdateExpenseModal";
 
-const ExpenseMenu = () => {
+const ExpenseMenu = ({ expenseId }: { expenseId: Expense["id"] }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
       <Dropdown>
@@ -17,7 +22,9 @@ const ExpenseMenu = () => {
           </Button>
         </DropdownTrigger>
         <DropdownMenu>
-          <DropdownItem key="edit">Editar Gasto</DropdownItem>
+          <DropdownItem key="edit" onPress={onOpen}>
+            Editar Gasto
+          </DropdownItem>
           <DropdownItem
             key="delete"
             color="danger"
@@ -28,11 +35,11 @@ const ExpenseMenu = () => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      {/* <DeleteBudgetModal
+      <UpdateExpenseModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        budgetId={budgetId}
-      /> */}
+        expenseId={expenseId}
+      />
     </>
   );
 };

@@ -1,10 +1,10 @@
 "use client";
 
-import ModalContainer from "@/components/ui/ModalContainer";
 import { Budget } from "@/src/schemas";
 import { formatCurrency, formatDate } from "@/src/utils";
 import { Button, useDisclosure } from "@heroui/react";
 import ExpenseMenu from "./ExpenseMenu";
+import ModalContainerCreate from "../ui/ModalContainerCreate";
 
 type Props = {
   budget: Budget;
@@ -63,7 +63,7 @@ const CreateExpense = ({ budget }: Props) => {
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-x-6">
-                  <ExpenseMenu />
+                  <ExpenseMenu expenseId={expense.id} />
                 </div>
               </li>
             ))}
@@ -75,7 +75,7 @@ const CreateExpense = ({ budget }: Props) => {
           <p className="text-center text-gray-600 py-20">No hay gastos aún</p>
         </>
       )}
-      <ModalContainer isOpen={isOpen} onOpenChange={onOpenChange} />
+      <ModalContainerCreate isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 };
