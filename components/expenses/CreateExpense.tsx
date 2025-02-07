@@ -5,6 +5,8 @@ import { formatCurrency, formatDate } from "@/src/utils";
 import { Button, useDisclosure } from "@heroui/react";
 import ExpenseMenu from "./ExpenseMenu";
 import ModalContainerCreate from "../ui/ModalContainerCreate";
+import Amount from "../ui/Amount";
+import ProgressBar from "./ProgressBar";
 
 type Props = {
   budget: Budget;
@@ -12,6 +14,15 @@ type Props = {
 
 const CreateExpense = ({ budget }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const totalSpent = budget.expenses.reduce(
+    (total, expense) => +expense.amount + total,
+    0
+  );
+
+  const totalAvailable = +budget.amount - totalSpent;
+
+  const percentage = +((totalSpent / +budget.amount) * 100).toFixed(2);
 
   return (
     <>
@@ -37,6 +48,14 @@ const CreateExpense = ({ budget }: Props) => {
       </div>
       {budget.expenses ? (
         <>
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
+            <ProgressBar percentage={percentage} />
+            <div className="flex flex-col justify-center items-center md:items-start">
+              <Amount label="Presupuesto" amount={+budget.amount} />
+              <Amount label="Disponible" amount={totalAvailable} />
+              <Amount label="Gastado" amount={totalSpent} />
+            </div>
+          </div>
           <h1 className="font-black text-4xl text-[#4dd307]">
             Gastos en este presupuesto
           </h1>
