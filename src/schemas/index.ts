@@ -108,3 +108,20 @@ export const DraftExpenseSchema = z.object({
 });
 
 export type DraftExpense = z.infer<typeof DraftBudgetSchema>;
+
+export const UpdatePasswordSchema = z
+  .object({
+    current_password: z
+      .string()
+      .min(1, { message: "La contraseña no puede ir vacia" }),
+    password: z.string().min(8, {
+      message: "La nueva contraseña debe tener minimo 8 caracteres",
+    }),
+    confirm_password: z.string(),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirm_password"],
+  });
+
+export type UpdatePassword = z.infer<typeof UpdatePasswordSchema>;

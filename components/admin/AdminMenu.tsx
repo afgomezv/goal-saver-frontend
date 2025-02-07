@@ -23,7 +23,9 @@ const AdminMenu = ({ user }: { user: User }) => {
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem key="user">Hola: {name}</DropdownItem>
-          <DropdownItem key="perfil">Mi perfil</DropdownItem>
+          <DropdownItem key="perfil" href="/admin/profile/settings">
+            Mi perfil
+          </DropdownItem>
           <DropdownItem key="prosupuestos">Mis prosupuestos</DropdownItem>
           <DropdownItem
             key="logout"
