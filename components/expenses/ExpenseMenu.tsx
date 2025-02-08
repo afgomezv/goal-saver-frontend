@@ -13,7 +13,7 @@ import DeleteExpenseModal from "./DeleteExpenseModal";
 import { useState } from "react";
 
 const ExpenseMenu = ({ expenseId }: { expenseId: Expense["id"] }) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { onOpen, onOpenChange } = useDisclosure();
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
 
@@ -53,14 +53,12 @@ const ExpenseMenu = ({ expenseId }: { expenseId: Expense["id"] }) => {
       </Dropdown>
       <UpdateExpenseModal
         isOpen={openModalEdit}
-        onOpen={onOpen}
         setModal={setOpenModalEdit}
         onOpenChange={onOpenChange}
         expenseId={expenseId}
       />
       <DeleteExpenseModal
         isOpen={openModalDelete}
-        onOpen={onOpen}
         setModal={setOpenModalDelete}
         onOpenChange={onOpenChange}
         expenseId={expenseId}

@@ -71,11 +71,11 @@ export async function deleteBudget(
     };
   }
 
+  const success = SuccessSchema.parse(deleteBudgetJson.message);
   revalidatePath("/admin");
-  //const success = SuccessSchema.parse(deleteBudgetJson);
 
   return {
     errors: [],
-    success: "",
+    success,
   };
 }

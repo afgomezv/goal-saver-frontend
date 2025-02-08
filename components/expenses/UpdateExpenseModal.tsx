@@ -17,14 +17,12 @@ import editExpense from "@/actions/edit-expense-action";
 type Props = {
   isOpen: boolean;
   onOpenChange: () => void;
-  onOpen: () => void;
   expenseId: number;
   setModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const UpdateExpenseModal = ({
   isOpen,
-  onOpen,
   setModal,
   onOpenChange,
   expenseId,
@@ -43,7 +41,6 @@ const UpdateExpenseModal = ({
 
   const handleClose = () => {
     setModal(false);
-    onOpen();
   };
 
   useEffect(() => {
@@ -56,6 +53,7 @@ const UpdateExpenseModal = ({
   useEffect(() => {
     if (state.success) {
       toast.success("Gasto se actualizo correctamente!");
+      handleClose();
     }
   }, [state]);
 

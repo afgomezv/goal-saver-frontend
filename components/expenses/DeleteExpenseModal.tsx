@@ -15,14 +15,12 @@ import { toast } from "sonner";
 type Props = {
   isOpen: boolean;
   onOpenChange: () => void;
-  onOpen: () => void;
   expenseId: number;
   setModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const DeleteExpenseModal = ({
   isOpen,
-  onOpen,
   onOpenChange,
   expenseId,
   setModal,
@@ -40,14 +38,12 @@ const DeleteExpenseModal = ({
 
   const handleClose = () => {
     setModal(false);
-    onOpen();
   };
 
   useEffect(() => {
     if (state.success) {
       toast.success("Gasto eliminado correactamente");
-      setModal(false);
-      onOpen();
+      handleClose();
     }
   }, [state]);
 

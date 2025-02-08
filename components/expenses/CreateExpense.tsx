@@ -94,7 +94,11 @@ const CreateExpense = ({ budget }: Props) => {
           <p className="text-center text-gray-600 py-20">No hay gastos aún</p>
         </>
       )}
-      <ModalContainerCreate isOpen={isOpen} onOpenChange={onOpenChange} />
+      <ModalContainerCreate
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onOpenChange={onOpenChange}
+      />
     </>
   );
 };

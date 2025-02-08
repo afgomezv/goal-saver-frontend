@@ -59,7 +59,7 @@ export default async function createExpense(
     };
   }
 
-  //const success = SuccessSchema.parse(json);
+  const success = SuccessSchema.parse(json.message);
   revalidatePath(`/admin/budgets/${budgetId}`);
 
   return {

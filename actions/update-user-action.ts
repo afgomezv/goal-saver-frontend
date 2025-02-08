@@ -29,8 +29,8 @@ export async function updateUser(formData: UpdateUser) {
     };
   }
 
-  revalidatePath("/admin/profile/settings");
   const success = SuccessSchema.parse(json.message);
+  revalidatePath("/admin/profile/settings");
 
   return {
     success,

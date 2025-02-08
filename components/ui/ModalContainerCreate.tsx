@@ -15,10 +15,11 @@ import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
+  onOpen: () => void;
   onOpenChange: () => void;
 };
 
-const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
+const ModalContainerCreate = ({ isOpen, onOpen, onOpenChange }: Props) => {
   const { id } = useParams();
 
   const createExpenseWithBudgetId = createExpense.bind(null, +id);
@@ -30,6 +31,7 @@ const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
   useEffect(() => {
     if (state.success) {
       toast.success("Gasto creado correctamente!");
+      onOpenChange();
     }
   }, [state]);
 
