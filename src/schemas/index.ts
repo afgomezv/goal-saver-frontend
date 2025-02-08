@@ -125,3 +125,13 @@ export const UpdatePasswordSchema = z
   });
 
 export type UpdatePassword = z.infer<typeof UpdatePasswordSchema>;
+
+export const updateUserSchema = z.object({
+  name: z.string().min(1, { message: "El nombre es requerido" }),
+  email: z
+    .string()
+    .min(1, { message: "El correo electrónico es requerido" })
+    .email({ message: "El correo electrónico no es valido" }),
+});
+
+export type UpdateUser = z.infer<typeof updateUserSchema>;
