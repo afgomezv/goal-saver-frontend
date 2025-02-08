@@ -19,7 +19,7 @@ type Props = {
   onOpenChange: () => void;
 };
 
-const ModalContainerCreate = ({ isOpen, onOpen, onOpenChange }: Props) => {
+const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
   const { id } = useParams();
 
   const createExpenseWithBudgetId = createExpense.bind(null, +id);
@@ -33,7 +33,7 @@ const ModalContainerCreate = ({ isOpen, onOpen, onOpenChange }: Props) => {
       toast.success("Gasto creado correctamente!");
       onOpenChange();
     }
-  }, [state]);
+  }, [state, onOpenChange]);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

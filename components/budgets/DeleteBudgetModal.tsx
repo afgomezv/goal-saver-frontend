@@ -30,7 +30,7 @@ const DeleteBudgetModal = ({ isOpen, onOpenChange, budgetId }: Props) => {
       toast.success("Presupuesto eliminado con éxito");
       onOpenChange();
     }
-  }, [state]);
+  }, [state, onOpenChange]);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

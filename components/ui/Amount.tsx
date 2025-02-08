@@ -1,5 +1,4 @@
 import { formatCurrency } from "@/src/utils";
-import { div } from "framer-motion/client";
 
 type AmountProps = {
   label: string;

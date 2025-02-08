@@ -5,7 +5,6 @@ import { BudgetsAPIResponseSchema } from "@/src/schemas";
 import getToken from "@/src/auth/token";
 import { formatCurrency, formatDate } from "@/src/utils";
 import BudgetMenu from "@/components/budgets/BudgetMenu";
-import DeleteBudgetModal from "@/components/budgets/DeleteBudgetModal";
 
 export const metadata: Metadata = {
   title: "Mis Presupuestos",

@@ -1,4 +1,7 @@
-import deleteExpense from "@/actions/delete-expense-action";
+import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import { useFormState } from "react-dom";
+
+import { useParams } from "next/navigation";
 import {
   Button,
   Modal,
@@ -7,10 +10,8 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
-import { useParams } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { useFormState } from "react-dom";
 import { toast } from "sonner";
+import deleteExpense from "@/actions/delete-expense-action";
 
 type Props = {
   isOpen: boolean;
@@ -36,22 +37,22 @@ const DeleteExpenseModal = ({
     success: "",
   });
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setModal(false);
-  };
+  }, [setModal]);
 
   useEffect(() => {
     if (state.success) {
       toast.success("Gasto eliminado correactamente");
       handleClose();
     }
-  }, [state]);
+  }, [state, handleClose]);
 
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 <h1

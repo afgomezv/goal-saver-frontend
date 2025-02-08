@@ -26,7 +26,7 @@ export default function EditBudgetForm({ budget }: { budget: Budget }) {
         },
       });
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>

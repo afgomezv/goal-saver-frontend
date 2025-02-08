@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+
 import { Button, InputOtp } from "@heroui/react";
 import { toast } from "sonner";
 import { validateToken } from "@/actions/validate-token-action";
@@ -14,8 +14,6 @@ const ValidateTokenForm = ({
   setIsValidToken,
   setToken,
 }: ValidateTokenFormProps) => {
-  const router = useRouter();
-
   const {
     handleSubmit,
     control,

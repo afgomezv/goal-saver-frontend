@@ -9,7 +9,7 @@ type Props = {
       }
     | {
         errors: never[];
-        success: any;
+        success: string | null;
       };
   budget?: Budget;
 };

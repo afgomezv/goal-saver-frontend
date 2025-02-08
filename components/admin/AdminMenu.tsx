@@ -12,7 +12,7 @@ import {
 import { Menu } from "lucide-react";
 
 const AdminMenu = ({ user }: { user: User }) => {
-  const { name, email } = user;
+  const { name } = user;
   return (
     <>
       <Dropdown>

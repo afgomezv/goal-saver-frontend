@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import {
   Button,
   Modal,
@@ -39,23 +45,23 @@ const UpdateExpenseModal = ({
     success: "",
   });
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setModal(false);
-  };
+  }, [setModal]);
 
   useEffect(() => {
     const url = `${process.env.NEXT_PUBLIC_URL}/admin/api/budgets/${budgetId}/expenses/${expenseId}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setExpense(data.expense));
-  }, []);
+  }, [budgetId, expenseId]);
 
   useEffect(() => {
     if (state.success) {
       toast.success("Gasto se actualizo correctamente!");
       handleClose();
     }
-  }, [state]);
+  }, [state, handleClose]);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

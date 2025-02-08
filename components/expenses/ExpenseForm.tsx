@@ -9,7 +9,7 @@ type Props = {
       }
     | {
         errors: never[];
-        success: any;
+        success: string | null;
       };
   expense?: DraftExpense;
 };
@@ -24,7 +24,7 @@ const ExpenseForm = ({ state, expense }: Props) => {
           name="name"
           isInvalid={!!state.errors[0]}
           errorMessage={state.errors[0]}
-          defaultValue={expense?.name}
+          defaultValue={expense?.name ?? "0"}
         />
         <Input
           type="number"
@@ -32,7 +32,7 @@ const ExpenseForm = ({ state, expense }: Props) => {
           name="amount"
           isInvalid={!!state.errors[1]}
           errorMessage={state.errors[1]}
-          defaultValue={expense?.amount.toString()!}
+          defaultValue={expense?.amount.toString() ?? "0"}
         />
       </div>
     </>

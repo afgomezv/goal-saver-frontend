@@ -17,7 +17,6 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<ResetPassword>({
