@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { useParams } from "next/navigation";
 import {
@@ -14,12 +14,12 @@ import createExpense from "@/actions/create-expense-action";
 import { toast } from "sonner";
 
 type Props = {
-  isOpen: boolean;
-  onOpen: () => void;
+  modal: boolean;
+  setModal: Dispatch<SetStateAction<boolean>>;
   onOpenChange: () => void;
 };
 
-const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
+const ModalContainerCreate = ({ modal, setModal, onOpenChange }: Props) => {
   const { id } = useParams();
 
   const createExpenseWithBudgetId = createExpense.bind(null, +id);
@@ -28,17 +28,21 @@ const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
     success: "",
   });
 
+  const handleClose = useCallback(() => {
+    setModal(false);
+  }, [setModal]);
+
   useEffect(() => {
     if (state.success) {
       toast.success("Gasto creado correctamente!");
-      onOpenChange();
+      handleClose();
     }
-  }, [state]);
+  }, [state, handleClose]);
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={modal} onOpenChange={onOpenChange}>
       <ModalContent>
-        {(onClose) => (
+        {() => (
           <>
             <ModalHeader>
               <h1
@@ -57,12 +61,11 @@ const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
             <form noValidate action={dispatch}>
               <ExpenseForm state={state} />
               <ModalFooter>
-                <Button variant="light" onPress={onClose}>
+                <Button variant="light" onPress={() => handleClose()}>
                   Cerrar
                 </Button>
                 <Button
                   type="submit"
-                  //onPress={onClose}
                   className="bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg"
                 >
                   Registrar Gasto

@@ -7,13 +7,19 @@ import ExpenseMenu from "./ExpenseMenu";
 import ModalContainerCreate from "../ui/ModalContainerCreate";
 import Amount from "../ui/Amount";
 import ProgressBar from "./ProgressBar";
+import { useState } from "react";
 
 type Props = {
   budget: Budget;
 };
 
 const CreateExpense = ({ budget }: Props) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [modal, setModal] = useState(false);
+  const { onOpenChange } = useDisclosure();
+
+  const handleOpenModal = () => {
+    setModal(true);
+  };
 
   const totalSpent = budget.expenses.reduce(
     (total, expense) => +expense.amount + total,
@@ -41,7 +47,7 @@ const CreateExpense = ({ budget }: Props) => {
         <Button
           typeof="button"
           className="h-12 bg-gradient-to-r from-[#ffe000] to-[#4dd307] text-gray-600 font-semibold text-lg"
-          onPress={onOpen}
+          onPress={() => handleOpenModal()}
         >
           Agregar gastos
         </Button>
@@ -95,8 +101,8 @@ const CreateExpense = ({ budget }: Props) => {
         </>
       )}
       <ModalContainerCreate
-        isOpen={isOpen}
-        onOpen={onOpen}
+        modal={modal}
+        setModal={setModal}
         onOpenChange={onOpenChange}
       />
     </>
