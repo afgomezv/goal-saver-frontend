@@ -33,7 +33,7 @@ const ModalContainerCreate = ({ isOpen, onOpenChange }: Props) => {
       toast.success("Gasto creado correctamente!");
       onOpenChange();
     }
-  }, [state, onOpenChange]);
+  }, [state]);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

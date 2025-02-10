@@ -47,8 +47,6 @@ export default async function createExpense(
     }),
   });
 
-  console.log(req);
-
   const json = await req.json();
 
   if (!req.ok) {

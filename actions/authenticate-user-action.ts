@@ -1,13 +1,14 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { Login, loginSchema } from "@/src/schemas";
+import { ErrorResponseSchema, Login, loginSchema } from "@/src/schemas";
 
 export async function authenticateUser(formData: Login) {
   const login = loginSchema.safeParse(formData);
 
   if (!login.success) {
     const errors = login.error.errors.map((error) => error.message);
+
     return {
       errors,
       success: "",
@@ -25,6 +26,12 @@ export async function authenticateUser(formData: Login) {
   });
 
   const json = await req.json();
+
+  if (!req.ok) {
+    return {
+      success: json,
+    };
+  }
 
   cookies().set({
     name: "GOALSAVER_TOKEN",
